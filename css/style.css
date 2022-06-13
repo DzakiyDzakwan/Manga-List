@@ -1,0 +1,7 @@
+.poster-card {
+  width: 80%;
+  height: 230px;
+  border-radius: 10px;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
