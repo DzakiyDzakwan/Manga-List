@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Tailwind -->
+    <link rel="stylesheet" href="/css/tailwind.css" />
+    <!-- Boxicons -->
+    <link
+      href="https://unpkg.com/boxicons@2.1.2/css/boxicons.min.css"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="css/style.css" />
+    <title>MyMangaList</title>
+  </head>
+  <body
+    class="m-0 p-0 box-border bg-bg1 flex flex-col sm:justify-between md:h-screen"
+  >
+    <!-- Header -->
+    <nav id="header" class="w-full md:px-75 py-3 h-[10vh] bg-primary">
+      <h1 class="text-h1 text-bg-secondary font-bold">MyAnimeList</h1>
+    </nav>
+    <!-- Header End -->
+
+    <section
+      id="main-page "
+      class="md:px-75 py-5 flex justify-between h-[80vh]"
+    >
+      <div
+        class="navigation-container w-[25%] h-full bg-bg-secondary sm:none md:block"
+      ></div>
+      <div class="list-container w-[75%] md:px-75">
+        <div
+          class="poster-container grid sm:grid-cols-2 md:grid-cols-5 md:grid-rows-2 gap-2 border border-black h-[90%]"
+        ></div>
+        <div class="pagination h-[10%] border border-black"></div>
+      </div>
+    </section>
+
+    <footer id="footer" class="w-full md:px-75 py-5 bg-primary h-[10vh]">
+      <a href="#" class="flex items-center">
+        <i class="bx bxl-github text-3xl text-bg-secondary"></i>
+        <h2 class="text-h2 text-bg-secondary font-semibold ml-2">
+          Dzakiy Dzakwan
+        </h2>
+      </a>
+    </footer>
+
+    <!-- jquery -->
+    <script
+      src="https://code.jquery.com/jquery-3.6.0.js"
+      integrity="sha256-H+K7U5CnXl1h5ywQfKtSj8PCmoN9aaq30gDh27Xc0jk="
+      crossorigin="anonymous"
+    ></script>
+
+    <!-- Vanilla Js -->
+    <script src="js/main.js"></script>
+  </body>
+</html>
