@@ -41,7 +41,51 @@ let mangaList = [
   },
 ];
 
-$.each(mangaList, (index, item) => {
+let limit = 0;
+
+if (screen.width > 600 && screen.width <= 900) {
+  limit = 12;
+} else if (screen.width <= 600) {
+  limit = 24;
+} else {
+  limit = 10;
+}
+
+$.ajax({
+  url: "https://api.jikan.moe/v4/manga",
+  type: "GET",
+  dataType: "JSON",
+  data: {
+    limit: limit,
+    order_by: "favorites",
+    sort: "desc",
+  },
+
+  success: (data) => {
+    $.each(data.data, (index, item) => {
+      console.log(item);
+      $("#card-container").append(`
+        <div
+        class="card flex flex-col justify-between"
+        style = "background-image:url('${item.images.jpg.image_url}')"
+      >
+        <div
+          class="bg-secondary-80 inline-block ml-auto w-[25px] h-[25px] text-center text-18 text-teritary rounded-md"
+        >
+          ${index + 1}
+        </div>
+        <div
+          class="bg-teritary-80 text-14 text-secondary text-center rounded-lg"
+        >
+          ${item.title}
+        </div>
+      </div>
+      `);
+    });
+  },
+});
+
+/* $.each(mangaList, (index, item) => {
   $("#card-container").append(`
   <div
   class="card flex flex-col justify-between"
@@ -59,4 +103,6 @@ $.each(mangaList, (index, item) => {
   </div>
 </div>
   `);
-});
+}); */
+
+console.log(screen.width);

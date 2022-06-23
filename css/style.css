@@ -8,6 +8,11 @@
   display: none;
 }
 
+.active {
+  background-color: #3f72af;
+  color: #dbe2ef;
+}
+
 @keyframes openMenu {
   from {
     transform: rotate(0deg);
@@ -15,23 +20,6 @@
   to {
     transform: rotate(180deg);
   }
-}
-
-/* .container {
-  width: 100%;
-  padding-right: 40px;
-  padding-left: 40px;
-  margin: auto;
-  background-color: red;
-} */
-
-.poster-card {
-  margin: auto;
-  width: 140px;
-  height: 200px;
-  border-radius: 10px;
-  background-size: cover;
-  background-repeat: no-repeat;
 }
 
 @media only screen and (max-width: 900px) {
