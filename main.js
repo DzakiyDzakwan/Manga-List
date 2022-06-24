@@ -47,8 +47,23 @@ let newPage = 0;
 let activePages = 1;
 const cardContainer = document.querySelector("#card-container");
 const paginationContainer = document.querySelector("#pagination-container");
+const menuButton = document.querySelector(".bxs-chevron-down");
+const menuContainer = document.querySelector("#menu-container");
 
-/* console.log(statusContainer); */
+//Open Menu Mobile
+menuButton.addEventListener("click", () => {
+  if (menuButton.style.transform == "rotate(180deg)") {
+    menuButton.style.animation = "rotateArrowDown 0.8s";
+    menuButton.style.transform = "rotate(0deg)";
+    menuContainer.classList.add("hidden");
+  } else {
+    menuButton.style.animation = "rotateArrowUp 0.8s";
+    menuButton.style.transform = "rotate(180deg)";
+    menuContainer.classList.remove("hidden");
+  }
+});
+
+console.log(menuContainer);
 
 //Filter
 let orderList = [
@@ -123,9 +138,47 @@ if (screen.width > 600 && screen.width <= 900) {
   limit = 10;
 }
 
-function getData(limit, orderBy, title, currentPage) {
+fetch(
+  `https://api.jikan.moe/v4/manga?sfw=false&sort=desc&limit=${limit}&order_by=${orderBy}&type=${type}&status=${status}&letter=${title}&page=${currentPage}`,
+  {
+    method: "GET",
+  }
+)
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    /* console.log(data.pagination.current_page); */
+    /* activePages = data.pagination.current_page; */
+    cardContainer.innerHTML = ``;
+    data.data.forEach((item, index) => {
+      cardContainer.innerHTML += `
+      <div
+      class="card flex flex-col justify-between"
+      style = "background-image:url('${item.images.jpg.image_url}')"
+    >
+      <div
+        class="bg-secondary-80 inline-block ml-auto w-[25px] h-[25px] text-center text-18 text-teritary rounded-md"
+      >
+        ${index + 1}
+      </div>
+      <div
+        class="bg-teritary-80 text-14 text-secondary text-center rounded-lg"
+      >
+        ${item.title}
+      </div>
+    </div>
+      `;
+      /* console.log(item); */
+    });
+  })
+  .catch((Err) => {
+    console.log(Err);
+  });
+
+function getData(limit, orderBy, type, status, title, currentPage) {
   fetch(
-    `https://api.jikan.moe/v4/manga?sort=desc&limit=${limit}&order_by=${orderBy}&q=${title}&page=${currentPage}`,
+    `https://api.jikan.moe/v4/manga?sfw=false&sort=desc&limit=${limit}&order_by=${orderBy}&type=${type}&status=${status}&letter=${title}&page=${currentPage}`,
     {
       method: "GET",
     }
@@ -135,7 +188,7 @@ function getData(limit, orderBy, title, currentPage) {
     })
     .then((data) => {
       /* console.log(data.pagination.current_page); */
-      activePages = data.pagination.current_page;
+      /* activePages = data.pagination.current_page; */
       cardContainer.innerHTML = ``;
       data.data.forEach((item, index) => {
         cardContainer.innerHTML += `
@@ -174,7 +227,7 @@ for (let i = 1; i <= paginationNumberList; i++) {
   if (i == currentPage) {
     activeNumber = ` <li class="pagination-list e">
     <button
-      class="rounded-full bg-teritary w-[30px] h-[30px] flex items-center justify-center text-base cursor-pointer hover:shadow-2xl active"
+      class="rounded-full bg-teritary w-[30px] h-[30px] flex items-center justify-center text-base cursor-pointer hover:shadow-2xl "
     >
       ${i}
     </button>
@@ -196,11 +249,26 @@ let paginationList = document.querySelectorAll(".pagination-list");
 
 paginationList.forEach((index, parameter) => {
   index.addEventListener("click", () => {
-    console.log(`success ${parameter + 1}`);
+    currentPage = parameter + 1;
+    console.log(currentPage);
+    getData(limit, orderBy, type, status, title, currentPage);
   });
 });
 
-getData(limit, orderBy, title, currentPage);
+/* getData(limit, orderBy, type, status, title, currentPage); */
+
+//search
+let searchBar = document.querySelector("#search-bar");
+
+searchBar.addEventListener("keyup", () => {
+  title = searchBar.value;
+  orderBy = orderByContainer.value;
+  type = typeContainer.value;
+  status = statusContainer.value;
+  currentPage = 1;
+
+  getData(limit, orderBy, type, status, title, currentPage);
+});
 
 /* console.log(paginationList); */
 

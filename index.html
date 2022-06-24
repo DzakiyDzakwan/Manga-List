@@ -14,7 +14,7 @@
     <link rel="stylesheet" href="style.css" />
     <title>MyMangaList</title>
   </head>
-  <body class="bg-backgorund w-full xl:h-screen">
+  <body class="bg-backgorund w-full h-screen">
     <!-- Navbar -->
     <nav class="bg-primary text-18 h-1/12">
       <div
@@ -26,13 +26,64 @@
         >
           MyMangaList
         </a>
-        <i class="ml-1 bx bxs-chevron-down hidden"></i>
+        <i id="menuButton" class="ml-1 bx bxs-chevron-down hidden"></i>
       </div>
     </nav>
+    <div
+      id="menu-container"
+      class="absolute hidden rounded-xl shadow-xl bg-teritary w-full p-4 text-14"
+    >
+      <div class="md:px-24">
+        <div class="bg-white rounded-3xl py-1 px-2 flex items-center gap-2">
+          <i class="bx bx-search-alt-2 w-8 text-18 border-r-2"></i>
+          <input
+            type="text"
+            class="focus:outline-none font-normal"
+            name="search"
+            id="search-bar"
+            placeholder="Search Here"
+          />
+        </div>
+        <div class="py-5">
+          <h3 class="text-18 tracking-wider font-bold">FILTER</h3>
+          <!-- OrderBy -->
+          <div class="flex items-center gap-4 w-full font-medium my-2">
+            <div class="w-1/4">Order By</div>
+            <select
+              class="w-2/4 focus:outline-none rounded-sm px-2"
+              name="orderBy"
+              id="order-by"
+            ></select>
+          </div>
+          <!-- Type -->
+          <div class="flex items-center gap-4 w-full font-medium my-2">
+            <div class="w-1/4">Type</div>
+            <select
+              class="w-2/4 focus:outline-none rounded-sm px-2"
+              name="type"
+              id="type"
+            >
+              <option value="">All</option>
+            </select>
+          </div>
+          <!-- Status -->
+          <div class="flex items-center gap-4 w-full font-medium my-2">
+            <div class="w-1/4">Status</div>
+            <select
+              class="w-2/4 focus:outline-none rounded-sm px-2"
+              name="status"
+              id="status"
+            >
+              <option value="">All</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
     <!-- Navbar End -->
 
     <!-- Content -->
-    <section class="md:h-10/12">
+    <section class="h-10/12">
       <div class="container h-full py-4 md:py-4 xl:py-8 flex">
         <div class="h-full hidden xl:block w-2/5 text-secondary">
           <div class="rounded-xl shadow-xl bg-teritary w-full p-4 text-14">
@@ -42,7 +93,7 @@
                 type="text"
                 class="focus:outline-none font-normal"
                 name="search"
-                id=""
+                id="search-bar"
                 placeholder="Search Here"
               />
             </div>
@@ -55,9 +106,7 @@
                   class="w-2/4 focus:outline-none rounded-sm px-2"
                   name="orderBy"
                   id="order-by"
-                >
-                  <option value="">All</option>
-                </select>
+                ></select>
               </div>
               <!-- Type -->
               <div class="flex items-center gap-4 w-full font-medium my-2">
@@ -88,7 +137,7 @@
         <div class="h-full w-full md:3/5 xl:px-4">
           <div
             id="card-container"
-            class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 xl:grid-rows-2 gap-3 overflow-auto"
+            class="grid grid-cols-2 md:grid-cols-4 xl:grid-cols-5 xl:grid-rows-2 gap-3 overflow-auto h-full md:h-[95%] xl:h-[500px]"
           >
             <!-- Card -->
             <!-- <div
@@ -107,7 +156,7 @@
             </div> -->
             <!-- Card End -->
           </div>
-          <div class="hidden md:block px-2 py-4 mx-auto w-fit">
+          <div class="hidden h-[5%] md:block px-2 py-4 mx-auto w-fit">
             <ul
               class="text-24 flex items-center justify-start gap-2 font-bold text-primary"
             >
