@@ -63,7 +63,7 @@ menuButton.addEventListener("click", () => {
   }
 });
 
-console.log(menuContainer);
+/* console.log(menuContainer); */
 
 //Filter
 let orderList = [
@@ -76,12 +76,17 @@ let orderList = [
 ];
 
 let orderBy = "favorites";
-const orderByContainer = document.querySelector("#order-by");
-orderList.forEach((item) => {
-  /* console.log(item); */
-  orderByContainer.innerHTML += `<option value="${item}">${
-    item[0].toUpperCase() + item.substring(1, item.length)
-  }</option>`;
+const orderByContainer = document.querySelectorAll(".order-by");
+console.log(orderByContainer);
+
+orderByContainer.forEach((container) => {
+  orderList.forEach((item) => {
+    /* console.log(item); */
+    /* console.log(container); */
+    container.innerHTML += `<option value="${item}">${
+      item[0].toUpperCase() + item.substring(1, item.length)
+    }</option>`;
+  });
 });
 
 let typeList = [
@@ -95,12 +100,15 @@ let typeList = [
 ];
 
 let type = "";
-const typeContainer = document.querySelector("#type");
-typeList.forEach((item) => {
-  /* console.log(item); */
-  typeContainer.innerHTML += `<option value="${item}">${
-    item[0].toUpperCase() + item.substring(1, item.length)
-  }</option>`;
+const typeContainer = document.querySelectorAll(".type");
+
+typeContainer.forEach((container) => {
+  typeList.forEach((item) => {
+    /* console.log(item); */
+    container.innerHTML += `<option value="${item}">${
+      item[0].toUpperCase() + item.substring(1, item.length)
+    }</option>`;
+  });
 });
 
 let statusList = [
@@ -112,12 +120,15 @@ let statusList = [
 ];
 
 let status = "";
-const statusContainer = document.querySelector("#status");
-statusList.forEach((item) => {
-  /* console.log(item); */
-  statusContainer.innerHTML += `<option value="${item}">${
-    item[0].toUpperCase() + item.substring(1, item.length)
-  }</option>`;
+const statusContainer = document.querySelectorAll(".status");
+
+statusContainer.forEach((container) => {
+  statusList.forEach((item) => {
+    /* console.log(item); */
+    container.innerHTML += `<option value="${item}">${
+      item[0].toUpperCase() + item.substring(1, item.length)
+    }</option>`;
+  });
 });
 
 //genres
@@ -258,16 +269,18 @@ paginationList.forEach((index, parameter) => {
 /* getData(limit, orderBy, type, status, title, currentPage); */
 
 //search
-let searchBar = document.querySelector("#search-bar");
+let searchBar = document.querySelectorAll(".search-bar");
 
-searchBar.addEventListener("keyup", () => {
-  title = searchBar.value;
-  orderBy = orderByContainer.value;
-  type = typeContainer.value;
-  status = statusContainer.value;
-  currentPage = 1;
+searchBar.forEach((searchBar, index) => {
+  searchBar.addEventListener("keyup", () => {
+    title = searchBar.value;
+    orderBy = orderByContainer[index].value;
+    type = typeContainer[index].value;
+    status = statusContainer[index].value;
+    currentPage = 1;
 
-  getData(limit, orderBy, type, status, title, currentPage);
+    getData(limit, orderBy, type, status, title, currentPage);
+  });
 });
 
 /* console.log(paginationList); */
