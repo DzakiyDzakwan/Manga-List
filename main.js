@@ -49,6 +49,9 @@ const cardContainer = document.querySelector("#card-container");
 const paginationContainer = document.querySelector("#pagination-container");
 const menuButton = document.querySelector(".bxs-chevron-down");
 const menuContainer = document.querySelector("#menu-container");
+let modal = document.querySelector("#modal");
+let modalHeader = document.querySelector("#modal-header");
+let modalBody = document.querySelector("#modal-body");
 
 //Open Menu Mobile
 menuButton.addEventListener("click", () => {
@@ -77,7 +80,7 @@ let orderList = [
 
 let orderBy = "favorites";
 const orderByContainer = document.querySelectorAll(".order-by");
-console.log(orderByContainer);
+/* console.log(orderByContainer); */
 
 orderByContainer.forEach((container) => {
   orderList.forEach((item) => {
@@ -149,7 +152,7 @@ if (screen.width > 600 && screen.width <= 900) {
   limit = 10;
 }
 
-fetch(
+/* fetch(
   `https://api.jikan.moe/v4/manga?sfw=false&sort=desc&limit=${limit}&order_by=${orderBy}&type=${type}&status=${status}&letter=${title}&page=${currentPage}`,
   {
     method: "GET",
@@ -159,8 +162,6 @@ fetch(
     return response.json();
   })
   .then((data) => {
-    /* console.log(data.pagination.current_page); */
-    /* activePages = data.pagination.current_page; */
     cardContainer.innerHTML = ``;
     data.data.forEach((item, index) => {
       cardContainer.innerHTML += `
@@ -180,12 +181,77 @@ fetch(
       </div>
     </div>
       `;
-      /* console.log(item); */
     });
   })
   .catch((Err) => {
     console.log(Err);
+  }); */
+
+function showModal(data) {
+  //Modal Show
+  let card = document.querySelectorAll(".card");
+  card.forEach((card, index) => {
+    card.addEventListener("click", () => {
+      console.log(data.data[index]);
+      console.log("Success " + index);
+      modalHeader.innerHTML = "";
+      modalHeader.innerHTML += `
+      <i
+        id="close-modal"
+        class="bx bx-x text-24 font-black cursor-pointer absolute right-[10vw] md:right-[20vw] xl:right-[35vw]"
+      ></i>
+      <h1 class="flex items-center justify-center w-4/5 m-auto">
+        ${data.data[index].title}
+      </h1>
+      <p class="text-14">${data.data[index].title_japanese}</p>
+      `;
+      modalBody.innerHTML = "";
+      modalBody.innerHTML += `
+      <div class="flex flex-col md:flex-row items-center md:items-start">
+        <img class="modal-poster" src="${data.data[index].images.jpg.image_url}" alt="no-image" />
+        <div class="w-full px-3 font-bold">
+          <div class="text-18">
+            <h2>Information</h2>
+            <div class="text-14 font-medium">
+              <p>Type : ${data.data[index].type}</p>
+              <p>Volume : ${data.data[index].volumes}</p>
+              <p>Chapters : ${data.data[index].chapters}</p>
+              <p>Status : ${data.data[index].status}</p>
+              <p id="genres-container">Genres : </p>
+              <p id="themse-container">Themes :</p>
+              <p id="authors-container">Authors :</p>
+            </div>
+          </div>
+
+          <div class="text-18 mt-2">
+            <h2>Statistic</h2>
+            <div class="text-14 font-medium">
+              <p>Score : ${data.data[index].score}</p>
+              <p>Ranked : ${data.data[index].rank}</p>
+              <p>Popularity : ${data.data[index].popularity}</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="w-full font-bold mt-2">
+        <h2 class="text-20">Sypnosis</h2>
+        <p
+          class="text-14 xl:h-[9rem] md:overflow-auto font-medium text-justify px-1"
+        >
+          "${data.data[index].synopsis}"
+        </p>
+      </div>
+      `;
+      modal.style.display = "flex";
+
+      let closeButton = document.querySelector("#close-modal");
+      closeButton.addEventListener("click", () => {
+        modal.style.display = "none";
+      });
+    });
   });
+}
 
 function getData(limit, orderBy, type, status, title, currentPage) {
   fetch(
@@ -198,8 +264,6 @@ function getData(limit, orderBy, type, status, title, currentPage) {
       return response.json();
     })
     .then((data) => {
-      /* console.log(data.pagination.current_page); */
-      /* activePages = data.pagination.current_page; */
       cardContainer.innerHTML = ``;
       data.data.forEach((item, index) => {
         cardContainer.innerHTML += `
@@ -219,8 +283,8 @@ function getData(limit, orderBy, type, status, title, currentPage) {
         </div>
       </div>
         `;
-        /* console.log(item); */
       });
+      showModal(data);
     })
     .catch((Err) => {
       console.log(Err);
@@ -228,11 +292,11 @@ function getData(limit, orderBy, type, status, title, currentPage) {
 }
 
 /* Pagination */
-let paginationNumberList = 20;
+/* let paginationNumberList = 20;
 
-screen.width <= 900 ? (paginationNumberList = 10) : (paginationNumberList = 20);
+screen.width <= 900 ? (paginationNumberList = 10) : (paginationNumberList = 20); */
 
-for (let i = 1; i <= paginationNumberList; i++) {
+/* for (let i = 1; i <= paginationNumberList; i++) {
   let activeNumber = ``;
 
   if (i == currentPage) {
@@ -264,7 +328,7 @@ paginationList.forEach((index, parameter) => {
     console.log(currentPage);
     getData(limit, orderBy, type, status, title, currentPage);
   });
-});
+}); */
 
 /* getData(limit, orderBy, type, status, title, currentPage); */
 
@@ -282,6 +346,8 @@ searchBar.forEach((searchBar, index) => {
     getData(limit, orderBy, type, status, title, currentPage);
   });
 });
+
+getData(limit, orderBy, type, status, title, currentPage);
 
 /* console.log(paginationList); */
 

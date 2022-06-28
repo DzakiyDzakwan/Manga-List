@@ -88,6 +88,16 @@ module.exports = {
             width: "190px",
           },
         },
+        ".backdrop-modal ": {
+          height: "100%",
+          width: "100%",
+          position: "fixed",
+          top: "0",
+          zIndex: "10",
+          display: "none",
+          alignItems: "center",
+          justifyContent: "center",
+        },
       });
     }),
   ],
