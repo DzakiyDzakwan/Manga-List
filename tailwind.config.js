@@ -20,6 +20,8 @@ module.exports = {
         20: "20px",
         18: "18px",
         14: "14px",
+        12: "12px",
+        10: "10px",
       },
       padding: {
         10: "10px",

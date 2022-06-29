@@ -42,16 +42,14 @@ let mangaList = [
 ];
 
 let title = "";
+let totalPage = 1;
 let currentPage = 1;
 let newPage = 0;
 let activePages = 1;
 const cardContainer = document.querySelector("#card-container");
-const paginationContainer = document.querySelector("#pagination-container");
+/* const paginationContainer = document.querySelector("#pagination-container"); */
 const menuButton = document.querySelector(".bxs-chevron-down");
 const menuContainer = document.querySelector("#menu-container");
-let modal = document.querySelector("#modal");
-let modalHeader = document.querySelector("#modal-header");
-let modalBody = document.querySelector("#modal-body");
 
 //Open Menu Mobile
 menuButton.addEventListener("click", () => {
@@ -134,13 +132,6 @@ statusContainer.forEach((container) => {
   });
 });
 
-//genres
-/* fetch("https://api.jikan.moe/v4/genres/manga").then((response) => {
-  return response.json().then((data) => {
-    console.log(data.data);
-  });
-}); */
-
 //Limit
 let limit = 0;
 
@@ -192,8 +183,11 @@ function showModal(data) {
   let card = document.querySelectorAll(".card");
   card.forEach((card, index) => {
     card.addEventListener("click", () => {
-      console.log(data.data[index]);
-      console.log("Success " + index);
+      /* console.log(data.data[index]);
+      console.log("Success " + index); */
+      let modal = document.querySelector("#modal");
+      let modalHeader = document.querySelector("#modal-header");
+      let modalBody = document.querySelector("#modal-body");
       modalHeader.innerHTML = "";
       modalHeader.innerHTML += `
       <i
@@ -217,9 +211,18 @@ function showModal(data) {
               <p>Volume : ${data.data[index].volumes}</p>
               <p>Chapters : ${data.data[index].chapters}</p>
               <p>Status : ${data.data[index].status}</p>
-              <p id="genres-container">Genres : </p>
-              <p id="themse-container">Themes :</p>
-              <p id="authors-container">Authors :</p>
+              <p>
+                    Genres :
+                    <span id="genres-container" class="text-12"></span>
+                  </p>
+                  <p>
+                    Themes :
+                    <span id="themes-container" class="text-12"></span>
+                  </p>
+                  <p>
+                    Authors :
+                    <span id="authors-container" class="text-12"></span>
+                  </p>
             </div>
           </div>
 
@@ -245,6 +248,30 @@ function showModal(data) {
       `;
       modal.style.display = "flex";
 
+      let genreContainer = document.querySelector("#genres-container");
+      let genre = data.data[index].genres;
+      genre.forEach((item) => {
+        genreContainer.innerText += " " + item.name + ",";
+      });
+
+      let themeContainer = document.querySelector("#themes-container");
+      let themes = data.data[index].themes;
+
+      /* console.log(data.data[index].themes); */
+
+      themes.forEach((item) => {
+        themeContainer.innerText += ` ${item.name},`;
+      });
+
+      let authorContainer = document.querySelector("#authors-container");
+      let authors = data.data[index].authors;
+
+      console.log(authors);
+
+      authors.forEach((item) => {
+        authorContainer.innerText += ` ${item.name}.`;
+      });
+
       let closeButton = document.querySelector("#close-modal");
       closeButton.addEventListener("click", () => {
         modal.style.display = "none";
@@ -255,7 +282,7 @@ function showModal(data) {
 
 function getData(limit, orderBy, type, status, title, currentPage) {
   fetch(
-    `https://api.jikan.moe/v4/manga?sfw=false&sort=desc&limit=${limit}&order_by=${orderBy}&type=${type}&status=${status}&letter=${title}&page=${currentPage}`,
+    `https://api.jikan.moe/v4/manga?sfw=true&sort=desc&limit=${limit}&order_by=${orderBy}&type=${type}&status=${status}&letter=${title}&page=${currentPage}`,
     {
       method: "GET",
     }
@@ -264,6 +291,12 @@ function getData(limit, orderBy, type, status, title, currentPage) {
       return response.json();
     })
     .then((data) => {
+      totalPage = data.pagination.last_visible_page;
+      let totalPageContainer = document.querySelectorAll(".total-pages");
+      totalPageContainer.forEach((item) => {
+        item.innerText = ` ${totalPage}`;
+      });
+
       cardContainer.innerHTML = ``;
       data.data.forEach((item, index) => {
         cardContainer.innerHTML += `
@@ -292,6 +325,37 @@ function getData(limit, orderBy, type, status, title, currentPage) {
 }
 
 /* Pagination */
+let paginationContainer = document.querySelectorAll(".pagination-input");
+let right = document.querySelectorAll(".bxs-chevron-right");
+
+right.forEach((item) => {
+  item.addEventListener("click", () => {
+    currentPage == totalPage ? (currentPage = totalPage) : currentPage++;
+    paginationContainer.forEach((item) => {
+      item.innerText = currentPage;
+    });
+
+    getData(limit, orderBy, type, status, title, currentPage);
+  });
+});
+
+let left = document.querySelectorAll(".bxs-chevron-left");
+
+left.forEach((item) => {
+  item.addEventListener("click", () => {
+    currentPage == 1 ? (currentPage = 1) : currentPage--;
+
+    paginationContainer.forEach((item) => {
+      item.innerText = currentPage;
+    });
+
+    getData(limit, orderBy, type, status, title, currentPage);
+  });
+});
+
+paginationContainer.forEach((item) => {
+  item.innerText = currentPage;
+});
 /* let paginationNumberList = 20;
 
 screen.width <= 900 ? (paginationNumberList = 10) : (paginationNumberList = 20); */

@@ -696,16 +696,21 @@ video {
   margin-right: auto;
 }
 
+.mx-2 {
+  margin-left: 0.5rem;
+  margin-right: 0.5rem;
+}
+
 .ml-1 {
   margin-left: 0.25rem;
 }
 
-.ml-auto {
-  margin-left: auto;
-}
-
 .mr-2 {
   margin-right: 0.5rem;
+}
+
+.ml-auto {
+  margin-left: auto;
 }
 
 .mt-2 {
@@ -760,20 +765,10 @@ video {
   height: 67vh;
 }
 
-.h-1\/10 {
-  height: 10%;
-}
-
-.h-1\/5 {
-  height: 20%;
-}
-
-.h-\[200px\] {
-  height: 200px;
-}
-
-.h-\[20px\] {
-  height: 20px;
+.h-fit {
+  height: -webkit-fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
 }
 
 .w-full {
@@ -784,12 +779,24 @@ video {
   width: 2rem;
 }
 
+.w-4\/5 {
+  width: 80%;
+}
+
 .w-1\/4 {
   width: 25%;
 }
 
 .w-2\/4 {
   width: 50%;
+}
+
+.w-1\/2 {
+  width: 50%;
+}
+
+.w-\[40\%\] {
+  width: 40%;
 }
 
 .w-2\/5 {
@@ -808,30 +815,6 @@ video {
 
 .w-11\/12 {
   width: 91.666667%;
-}
-
-.w-4\/5 {
-  width: 80%;
-}
-
-.w-1\/5 {
-  width: 20%;
-}
-
-.w-3\/5 {
-  width: 60%;
-}
-
-.w-\[50\%\] {
-  width: 50%;
-}
-
-.w-\[40\%\] {
-  width: 40%;
-}
-
-.w-1\/2 {
-  width: 50%;
 }
 
 .cursor-pointer {
@@ -862,10 +845,6 @@ video {
   justify-content: space-between;
 }
 
-.justify-around {
-  justify-content: space-around;
-}
-
 .gap-2 {
   gap: 0.5rem;
 }
@@ -874,12 +853,12 @@ video {
   gap: 1rem;
 }
 
-.gap-3 {
-  gap: 0.75rem;
-}
-
 .gap-1 {
   gap: 0.25rem;
+}
+
+.gap-3 {
+  gap: 0.75rem;
 }
 
 .overflow-auto {
@@ -910,21 +889,12 @@ video {
   border-radius: 1rem;
 }
 
-.border {
-  border-width: 1px;
-}
-
 .border-r-2 {
   border-right-width: 2px;
 }
 
 .border-b-4 {
   border-bottom-width: 4px;
-}
-
-.border-black {
-  --tw-border-opacity: 1;
-  border-color: rgb(0 0 0 / var(--tw-border-opacity));
 }
 
 .bg-primary {
@@ -1014,6 +984,10 @@ video {
 
 .text-24 {
   font-size: 24px;
+}
+
+.text-12 {
+  font-size: 12px;
 }
 
 .text-20 {
@@ -1169,8 +1143,10 @@ video {
     height: 500px;
   }
 
-  .xl\:h-4\/5 {
-    height: 80%;
+  .xl\:h-fit {
+    height: -webkit-fit-content;
+    height: -moz-fit-content;
+    height: fit-content;
   }
 
   .xl\:h-\[9rem\] {
