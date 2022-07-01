@@ -20,6 +20,8 @@ module.exports = {
         20: "20px",
         18: "18px",
         14: "14px",
+        12: "12px",
+        10: "10px",
       },
       padding: {
         10: "10px",
@@ -87,6 +89,16 @@ module.exports = {
           "@screen sm": {
             width: "190px",
           },
+        },
+        ".backdrop-modal ": {
+          height: "100%",
+          width: "100%",
+          position: "fixed",
+          top: "0",
+          zIndex: "10",
+          display: "none",
+          alignItems: "center",
+          justifyContent: "center",
         },
       });
     }),

@@ -6,6 +6,7 @@
 
 .bxs-chevron-down {
   display: none;
+  /* animation: rotateArrowDown 0.8s; */
 }
 
 .active {
@@ -13,12 +14,34 @@
   color: #dbe2ef;
 }
 
-@keyframes openMenu {
+/* #menu-container {
+  animation: openMenu 1s infinite;
+} */
+
+@keyframes rotateArrowUp {
   from {
     transform: rotate(0deg);
   }
   to {
     transform: rotate(180deg);
+  }
+}
+
+@keyframes rotateArrowDown {
+  from {
+    transform: rotate(180deg);
+  }
+  to {
+    transform: rotate(0deg);
+  }
+}
+
+@keyframes openMenu {
+  from {
+    transform: translatey(-35px);
+  }
+  to {
+    transform: translatey(0px);
   }
 }
 
