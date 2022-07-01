@@ -249,19 +249,26 @@ function showModal(data) {
       modal.style.display = "flex";
 
       let genreContainer = document.querySelector("#genres-container");
-      let genre = data.data[index].genres;
-      genre.forEach((item) => {
-        genreContainer.innerText += " " + item.name + ",";
+      let genreData = data.data[index].genres;
+      let genres = [];
+      /* genreContainer.innerText += genre.toString(); */
+      genreData.forEach((item) => {
+        genres.push(item.name);
+        /* genreContainer.innerText += " " + item.name + ","; */
       });
+      genreContainer.innerText += genres.toString();
 
       let themeContainer = document.querySelector("#themes-container");
-      let themes = data.data[index].themes;
+      let themesData = data.data[index].themes;
+      let themes = [];
 
       /* console.log(data.data[index].themes); */
 
-      themes.forEach((item) => {
-        themeContainer.innerText += ` ${item.name},`;
+      themesData.forEach((item) => {
+        themes.push(item.name);
       });
+
+      themeContainer.innerText += themes.toString();
 
       let authorContainer = document.querySelector("#authors-container");
       let authors = data.data[index].authors;
