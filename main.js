@@ -103,7 +103,7 @@ const typeList = [
   "manhwa",
   "manhua",
 ];
-let type = "";
+let type = typeList[0];
 const typeContainer = document.querySelectorAll(".type");
 typeContainer.forEach((x) => {
   x.addEventListener("change", function () {
@@ -125,11 +125,14 @@ const statusList = [
   "discontinued",
   "upcoming",
 ];
-let status = "";
+
+let status = statusList[0];
+
 const statusContainer = document.querySelectorAll(".status");
 statusContainer.forEach((x) => {
   x.addEventListener("change", function () {
-    type = x.value;
+    status = x.value;
+    console.log(status);
     renderCard(limit, order, type, status, title, currentPage);
   });
   statusList.forEach((y) => {
@@ -333,10 +336,13 @@ document.addEventListener("click", async function (e) {
 
 //Close Modal
 document.addEventListener("click", function (e) {
-  isCloseModal = e.target.id === "close-modal";
+  let isCloseModal = e.target.id === "close-modal";
   if (isCloseModal) {
     closeModal();
   }
 });
 
+console.log(
+  `https://api.jikan.moe/v4/manga?sfw=true&sort=desc&limit=${limit}&order_by=${order}&type=${type}&status=${status}&letter=${title}&page=${currentPage}`
+);
 renderCard(limit, order, type, status, title, currentPage);
